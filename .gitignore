@@ -1,0 +1,4 @@
+/playwright/screenshots/
+/playwright/allure-report/
+/playwright/allure-results/
+/.venv/
