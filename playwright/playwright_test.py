@@ -7,24 +7,21 @@ from playwright.sync_api import sync_playwright
 from pytest import mark
 
 
-@mark.skip('Не запускаем')
-def test_pw():
+@mark.skip('No runnable')
+def test_pw(page):
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
-        page.goto('https://yandex.ru')
-        page.screenshot(path=f'example-{p.chromium.name}.png')
-        browser.close()
+        page.goto('https://google.com')
 
 
 @allure.title("Youtube search")
+@allure.story("YT-1235")
 def test_yt_search(page):
     page.goto('https://www.youtube.com/')
     assert page.query_selector("//ytd-topbar-logo-renderer[@id='logo']") is not None
     page.locator("//input[@id='search']").type('playwright', timeout=1000)
     page.locator("//button[@id='search-icon-legacy']").first.click(timeout=1000)
     page.wait_for_load_state('networkidle')
-    results = page.locator("//a[@id='video-title111111111111111111111111111']").all()
+    results = page.locator("//a[@id='video-title']").all()
     assert len(results) > 10
 
 
@@ -33,9 +30,10 @@ def test_blank():
     assert 1 == 1
 
 
-def test_failed():
+@allure.title('Failed test')
+def test_failed(page):
     """
-    Падающий тест
+    Failed test
     """
     assert 1 == 2
 
