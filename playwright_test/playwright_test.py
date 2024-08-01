@@ -1,8 +1,4 @@
-import typing
-from typing import List
-
 import allure
-import pytest
 from playwright.sync_api import sync_playwright
 from pytest import mark
 
@@ -32,9 +28,8 @@ def test_blank():
 
 @allure.title('Failed test')
 def test_failed(page):
-    """
-    Failed test
-    """
+    page.goto('https://www.youtube.com/')
+    page.wait_for_load_state('networkidle')
     assert 1 == 2
 
 

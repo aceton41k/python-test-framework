@@ -1,0 +1,3 @@
+api:
+  cat:
+    url: https://cat-fact.herokuapp.com

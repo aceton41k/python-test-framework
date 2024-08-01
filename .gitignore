@@ -1,4 +1,8 @@
-/playwright/screenshots/
-/playwright/allure-report/
-/playwright/allure-results/
+/playwright_test/screenshots/
+/playwright_test/allure-report/
+/playwright_test/allure-results/
 /.venv/
+/api_tests/allure-results/
+/api_tests/allure-report/
+/allure-report/
+/allure-results/

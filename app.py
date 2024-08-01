@@ -1,12 +1,9 @@
-import datetime
-
 import bcrypt
-from flask import Flask, jsonify, request, flash, redirect, url_for, render_template, make_response
+import jwt
+from flask import Flask, jsonify, request, flash, redirect, url_for, render_template
 from flask_login import UserMixin, LoginManager, login_user, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
-import jwt
-from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://pydb_user:pydb123@localhost/pydb'
@@ -14,13 +11,10 @@ app.config['SECRET_KEY'] = 'abracadabra'
 db = SQLAlchemy(app)
 
 
-# Определение модели для таблицы "resources"
 class Employees(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     job_id = db.Column(db.String(100), nullable=False)
-
-    # Дополнительные поля ресурса, если необходимо
 
     def to_dict(self):
         return {
@@ -30,18 +24,15 @@ class Employees(db.Model):
         }
 
 
-# Настройка Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-# Метод для получения пользователя по его идентификатору
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
 
-# Метод для обработки входа в систему
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -50,10 +41,10 @@ def login():
         user = Users.query.filter_by(login=login).first()
         if user and user.check_password(password):
             login_user(user)
-            flash('Вход выполнен успешно!', 'success')
+            flash('Login successful', 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Неправильное имя пользователя или пароль', 'error')
+            flash('Invalid username or password', 'error')
     return render_template('login.html')
 
 
@@ -80,14 +71,12 @@ def add_user():
         return jsonify({'error': 'Failed to add user.', 'details': str(e)}), 500
 
 
-# Защищенный маршрут - для доступа нужна авторизация
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return f'Привет, {current_user.login}! Это защищенная страница.'
+    return f'Hello, {current_user.login}! This is secure page'
 
 
-# Метод для выхода из системы
 @app.route('/logout')
 @login_required
 def logout():
@@ -95,7 +84,6 @@ def logout():
     return redirect(url_for('login'))
 
 
-# Класс для модели данных пользователя
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(50), unique=True, nullable=False)

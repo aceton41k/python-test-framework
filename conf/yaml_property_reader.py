@@ -1,0 +1,16 @@
+from typing import Dict
+
+import yaml
+
+from conf.abstract_properties import BasePropertyReader
+
+
+class YamlPropertyReader(BasePropertyReader):
+    properties: Dict = None
+
+    def read_properties(self):
+        with open('../properties.yaml', 'r') as file:
+            self.properties = yaml.safe_load(file)
+
+    def get_properties(self):
+        return self.properties
