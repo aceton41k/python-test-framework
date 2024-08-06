@@ -43,8 +43,8 @@ jobs:
         tar -zxvf allure-${ALLURE_VERSION}.tgz
         sudo mv allure-${ALLURE_VERSION} /opt/allure
         sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-        allure generate ${{ github.workspace }}/allure-results --clean -o ${{ github.workspace }}/allure-report
-
+        allure generate ${{ github.workspace }}/allure-results --clean -o ${{ github.workspace }}/docs
+        
     - name: Deploy to GitHub Pages
       if: ${{ github.ref == 'refs/heads/master' }}
       run: |
