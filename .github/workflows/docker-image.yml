@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag python-test:$(date +%s)
+      run: |
+        IMAGE_TAG=python-test:$(date +%s)
+        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+        docker build . --file Dockerfile --tag $IMAGE_TAG
     - name: Run 
-      run: docker run -d --name python-test python-test:$(date +%s)
+      run: docker run -d --name python-test ${{ env.IMAGE_TAG }}
