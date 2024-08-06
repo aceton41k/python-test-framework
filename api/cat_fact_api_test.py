@@ -1,7 +1,8 @@
 import requests
 
-from conf.abstract_properties import BasePropertyReader
+
 from api.base_api import BaseApi
+from conf.abstract_properties import BasePropertyReader
 from model.cat_fact import CatFact
 
 
