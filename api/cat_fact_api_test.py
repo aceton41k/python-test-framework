@@ -19,9 +19,3 @@ class CatFactApi(BaseApi):
         response.raise_for_status()
         assert response.status_code == 200
         return [CatFact(**item) for item in response.json()]
-
-    def get_data_failed(self) -> list[CatFact]:
-        response = self.session.get(self.get_url() + '/facts_failed/')
-        response.raise_for_status()
-        assert response.status_code == 200
-        return [CatFact(**item) for item in response.json()]

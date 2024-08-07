@@ -9,9 +9,3 @@ def test_cat_fact_api(http_adapter):
     api = CatFactApi(http_adapter, YamlPropertyReader())
     fact_list = api.get_facts()
     assert len(fact_list) == 5
-
-
-@allure.title("API test failed")
-def test_failed(http_adapter):
-    api = CatFactApi(http_adapter, YamlPropertyReader())
-    api.get_data_failed()
