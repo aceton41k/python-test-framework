@@ -52,9 +52,11 @@ jobs:
 
     - name: Deploy to GitHub Pages
       if: ${{ github.ref == 'refs/heads/master' }}
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
       run: |
         git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'								   
+        git config --global user.email 'github-actions@github.com'			   
         git add docs/
         git commit -m "Deploy Allure Report" || echo "No changes to commit"
-        git push origin master
+        git push https://${GH_PAT}@github.com/${{ github.repository }}.git master
