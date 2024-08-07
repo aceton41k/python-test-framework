@@ -45,18 +45,10 @@ jobs:
         sudo ln -s /opt/allure/bin/allure /usr/bin/allure
         allure generate ${{ github.workspace }}/allure-results --clean -o ${{ github.workspace }}/docs
         
-    - name: Prepare for GitHub Pages
-      run: |
-        mkdir -p ${{ github.workspace }}/docs
-        touch ${{ github.workspace }}/docs/.nojekyll
-
-    - name: Deploy to GitHub Pages
-      if: ${{ github.ref == 'refs/heads/master' }}
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-      run: |
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'			   
-        git add docs/
-        git commit -m "Deploy Allure Report" || echo "No changes to commit"
-        git push https://${GH_PAT}@github.com/${{ github.repository }}.git master
+    - name: Deploy Allure Report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        publish_branch: gh-pages
+        keep_files: false
