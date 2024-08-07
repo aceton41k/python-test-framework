@@ -20,7 +20,7 @@ jobs:
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
         docker build . --file Dockerfile --tag $IMAGE_TAG
     - name: Run 
-      run: docker run -d --name python-test -v ${{ github.workspace }}/allure-results:/app/allure-results ${{ env.IMAGE_TAG }}
+      run: docker run -d --name python-test -v ${{ github.workspace }}/allure-results:/allure-results ${{ env.IMAGE_TAG }}
     
     - name: Wait for container to finish
       run: |
