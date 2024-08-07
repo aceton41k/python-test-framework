@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Wed Aug 07 18:00:07 GMT 2024","Wed Aug 07 18:00:10 GMT 2024","2818","playwright","playwright_test","","","","Failed test",""
+"skipped","Wed Aug 07 18:00:03 GMT 2024","Wed Aug 07 18:00:03 GMT 2024","0","playwright","playwright_test","","","","test_pw",""
+"failed","Wed Aug 07 18:00:03 GMT 2024","Wed Aug 07 18:00:06 GMT 2024","3088","playwright","playwright_test","","","","Youtube search",""
+"passed","Wed Aug 07 18:00:06 GMT 2024","Wed Aug 07 18:00:06 GMT 2024","1","playwright","playwright_test","","","","test_blank",""
+"passed","Wed Aug 07 18:00:10 GMT 2024","Wed Aug 07 18:00:10 GMT 2024","295","playwright","todos_test","","","","test_todos",""
