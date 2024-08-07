@@ -33,22 +33,26 @@ jobs:
     - name: Get logs from the Docker container
       run: docker logs python-test
 
-    - name: Generate Allure Report
-      env:
-        ALLURE_VERSION: 2.30.0
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y openjdk-11-jre
-        curl -o allure-${ALLURE_VERSION}.tgz -L https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
-        tar -zxvf allure-${ALLURE_VERSION}.tgz
-        sudo mv allure-${ALLURE_VERSION} /opt/allure
-        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-        allure generate ${{ github.workspace }}/allure-results --clean -o ${{ github.workspace }}/docs
-        
-    - name: Deploy Allure Report to GitHub Pages
+    - name: Load test report history
+      uses: actions/checkout@v3
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+
+    - name: Build test report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
+      with:
+        gh_pages: gh-pages
+        allure_history: allure-history
+        allure_results: allure-results
+
+    - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
+      if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./allure-report
         publish_branch: gh-pages
-        keep_files: false
+        publish_dir: allure-history
