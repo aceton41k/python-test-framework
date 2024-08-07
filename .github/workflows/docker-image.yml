@@ -45,14 +45,16 @@ jobs:
         sudo ln -s /opt/allure/bin/allure /usr/bin/allure
         allure generate ${{ github.workspace }}/allure-results --clean -o ${{ github.workspace }}/docs
         
+    - name: Prepare for GitHub Pages
+      run: |
+        mkdir -p ${{ github.workspace }}/docs
+        touch ${{ github.workspace }}/docs/.nojekyll
+
     - name: Deploy to GitHub Pages
       if: ${{ github.ref == 'refs/heads/master' }}
       run: |
         git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
-        git checkout master
-        mkdir -p docs
-        cp -r ${{ github.workspace }}/allure-report/* docs/
+        git config --global user.email 'github-actions@github.com'								   
         git add docs/
-        git commit -m "Deploy Allure Report"
+        git commit -m "Deploy Allure Report" || echo "No changes to commit"
         git push origin master
