@@ -16,3 +16,4 @@ class TestYouTube:
     def test_yt_search(self):
         self.yt.go_home()
         self.yt.search('playwright')
+        self.yt.check_search_results()
