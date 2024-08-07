@@ -22,8 +22,9 @@ class YouTubePage(BasePage):
         self.search_button.wait_for(state='visible', timeout=5000)
         self.search_button.click(timeout=10000, delay=1000)
         self.page.wait_for_load_state('networkidle')
+        self.page.wait_for_load_state('domcontentloaded')
 
     @allure.step('Check search results')
     def check_search_results(self):
         results = self.locator("//a[@id='video-title']")
-        assert len(results.all()) > 5
+        assert len(results.all()) > 5, "No results or not enough results loaded"
