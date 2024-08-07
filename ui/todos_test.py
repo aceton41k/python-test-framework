@@ -1,8 +1,6 @@
-import pytest
 from playwright.sync_api import expect
 
 
-# @pytest.mark.parametrize('page', [True], indirect=True)
 def test_todos(page):
     url = 'https://demo.playwright.dev/todomvc/#/'
     page.goto(url)

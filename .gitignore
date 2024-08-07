@@ -1,10 +1,10 @@
-/playwright/screenshots/
-/playwright/test/allure-report/
-/playwright/test/allure-results/
+/ui/screenshots/
+/ui/test/allure-report/
+/ui/test/allure-results/
 /.venv/
 /api_tests/allure-results/
 /api_tests/allure-report/
 /allure-report/
 /allure-results/
-/playwright/videos/
+/ui/videos/
 /screenshots/
