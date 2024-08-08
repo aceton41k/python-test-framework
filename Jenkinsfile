@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-            steps {
-                git credentialsId: '3043e08d-b58f-4752-8015-5d68ed6f2df4', url: 'https://github.com/aceton41k/template-framework-py.git'
-            }
-        }
         stage('Setup Python Environment') {
             steps {
                 script {
