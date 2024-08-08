@@ -1,7 +1,6 @@
 pipeline {
     agent any
     
-
     stages {
         stage('Checkout') {
             steps {
@@ -11,13 +10,8 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 script {
-                    // Создание виртуального окружения
                     sh '''
                     python3 -m venv venv
-                    '''
-                
-                    // Активируем виртуальное окружение и устанавливаем зависимости
-                    sh '''
                     . venv/bin/activate
                     pip install --upgrade pip
                     pip install -r requirements.txt
@@ -33,7 +27,6 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Активируем виртуальное окружение и запускаем тесты
                     sh '''
                     . venv/bin/activate
                     pytest --alluredir=allure-results
